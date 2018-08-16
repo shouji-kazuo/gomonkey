@@ -1,34 +1,15 @@
+# WIP
 # 概要
 ## パースの流れ(`parseExpression`)
 
-* 単項式と思ってパースする
-    * <単項演算子>?<リテラル>
-    * 単項式をパースする関数の登録(`parser.go`)↓
-    ```
-        p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
-        p.registerPrefix(token.IDENT, p.parseIdentifier)
-        p.registerPrefix(token.INT, p.parseIntegerLiteral)
-        p.registerPrefix(token.BANG, p.parsePrefixExpression)
-        p.registerPrefix(token.MINUS, p.parsePrefixExpression)
-    ```
-* `peekToken`に2項演算子がきた && `parseExpression`に与えられた優先度より`peekToken`の優先度が高ければ，トークンを1つ進めて，`peekToken`以降を多項式と思ってパースを試みる
-    * <左の式> <演算子> <右の式>
-    * 左の式はパース済み
-    * 演算子は`curToken`
-    * `peekToken`以降は右の式
-        * 演算子の優先順位を得る→`curPrecedence`
-        * トークンを進める
-        * `<右の式> = parseExpression(curPrecedence)`して再帰的に式を得る
+1. 単項式と思ってパースし始める
+    * <単項演算子>?<リテラル>
+2. `peekToken`に2項演算子がきた && `parseExpression`に与えられた優先度より`peekToken`の優先度が高ければ，
+    1. トークンを1つ進めて，
+    2. `peekToken`以降を多項式の第2項以降とみなしてパースを試みる
+        1. 第2項以降に，今の `peekToken` より優先順位が高い演算子が来た場合
+        2. 
 
-↑ ボツ
-
-
-
-
-* 優先度
-    * 単項演算子 < 2項演算子
-    * `peekToken`に2項演算子が来たら，多項式と思ってパースを試みる
-* トークンを進めるタイミング
 
 # トレース
 
@@ -288,7 +269,6 @@ ParseProgram()
                 Expression: parseExpression(LOWEST)
                             ^^^^^^^^^^^^^^^^^^^^^^^
             }
------------------------------------ 単項式 ----------------------------------------
                 prefix = parseIntegerLiteral
                 leftExp = parseIntegerLiteral()
                           ^^^^^^^^^^^^^^^^^^^^^
@@ -297,7 +277,6 @@ ParseProgram()
                         Value: 1
                     }
                 (leftExp に IntegerLiteralを得る)
------------------------------------------------------------------------------------
                 for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekPrecedence()
                     → peekToken = + なので第1項はtrue
                       precedence は LOWEST , peekPrecedenceは SUM なので第2項はtrue
@@ -306,7 +285,6 @@ ParseProgram()
                     nextToken()
                         curToken = +
                         peekToken = 2
------------------------------------ 多項式 -----------------------------------
                     leftExp = parseInfixExpression(leftExp)
                               ^^^^^^^^^^^^^^^^^^^^
                         expression = InfixExpression {
