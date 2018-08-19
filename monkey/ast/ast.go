@@ -7,7 +7,7 @@ import (
 	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/token"
 )
 
-// 35 is ...
+// Node is ...
 type Node interface {
 	TokenLiteral() string
 	String() string

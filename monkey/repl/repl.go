@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/object"
+
+	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/evaluator"
 	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/lexer"
 	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/parser"
 )
@@ -26,6 +29,7 @@ const MONKEY_FACE = `            __,__
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
+	env := object.NewEnvironment()
 
 	for {
 		fmt.Printf(PROMPT)
@@ -43,8 +47,14 @@ func Start(in io.Reader, out io.Writer) {
 			printParserErrors(out, p.Errors())
 			continue
 		}
-		io.WriteString(out, program.String())
-		io.WriteString(out, "\n")
+
+		evaluated := evaluator.Eval(program, env)
+		if evaluated != nil {
+			io.WriteString(out, evaluated.Inspect())
+			io.WriteString(out, "\n")
+		}
+		// io.WriteString(out, program.String())
+		// io.WriteString(out, "\n")
 	}
 }
 
