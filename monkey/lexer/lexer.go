@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/token"
+	"github.com/shouji-kazuo/gomonkey/monkey/token"
 )
 
 // Lexer is ...

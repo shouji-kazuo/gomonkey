@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/ast"
+	"github.com/shouji-kazuo/gomonkey/monkey/ast"
 )
 
 // ObjectType の定数

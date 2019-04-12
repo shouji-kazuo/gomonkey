@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/user"
 
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/repl"
+	"github.com/shouji-kazuo/gomonkey/monkey/repl"
 )
 
 func main() {

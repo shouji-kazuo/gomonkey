@@ -3,8 +3,8 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/ast"
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/object"
+	"github.com/shouji-kazuo/gomonkey/monkey/ast"
+	"github.com/shouji-kazuo/gomonkey/monkey/object"
 )
 
 var (

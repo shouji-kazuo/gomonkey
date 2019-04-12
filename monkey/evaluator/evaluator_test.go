@@ -3,9 +3,9 @@ package evaluator
 import (
 	"testing"
 
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/lexer"
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/object"
-	"github.com/shouji-kazuo/sutras_of_writing_an_interpreter_in_go/monkey/parser"
+	"github.com/shouji-kazuo/gomonkey/monkey/lexer"
+	"github.com/shouji-kazuo/gomonkey/monkey/object"
+	"github.com/shouji-kazuo/gomonkey/monkey/parser"
 )
 
 func testEval(input string) object.Object {
